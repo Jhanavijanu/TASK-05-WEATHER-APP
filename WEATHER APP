@@ -1,0 +1,74 @@
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Weather App</h1>
+    <input type="text" id="location" placeholder="Enter location">
+    <button id="get-weather">Get Weather</button>
+    <div id="weather-data">
+        <h2 id="location-name"></h2>
+        <p id="current-weather"></p>
+        <p id="temperature"></p>
+        <p id="humidity"></p>
+        <p id="wind-speed"></p>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+styles.css
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#weather-data {
+    margin-top: 20px;
+}
+
+#location-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+script.js
+
+const apiKey = "YOUR_WEATHER_API_KEY";
+const locationInput = document.getElementById("location");
+const getWeatherButton = document.getElementById("get-weather");
+const weatherDataDiv = document.getElementById("weather-data");
+
+getWeatherButton.addEventListener("click", () => {
+    const location = locationInput.value;
+    fetch(`(link unavailable))
+        .then(response => response.json())
+        .then(data => {
+            const locationName = data.name;
+            const currentWeather = data.weather[0].main;
+            const temperature = data.main.temp;
+            const humidity = data.main.humidity;
+            const windSpeed = data.wind.speed;
+            
+            weatherDataDiv.innerHTML = `
+                <h2>${locationName}</h2>
+                <p>Current Weather: ${currentWeather}</p>
+                <p>Temperature: ${temperature}°C</p>
+                <p>Humidity: ${humidity}%</p>
+                <p>Wind Speed: ${windSpeed} m/s</p>
+            `;
+        })
+        .catch(error => console.error(error));
+});
+
